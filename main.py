@@ -95,4 +95,5 @@ def get_names_of_heroes(sentences: list) -> list:
 reformat_file("frankenstain.txt")
 text = extract_text_from_file("frankenstain.txt")
 sentences = get_sentences_from_text(text)
-print(get_names_of_heroes(sentences))
+names = sorted(get_names_of_heroes(sentences))
+print(names)
