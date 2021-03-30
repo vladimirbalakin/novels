@@ -1,4 +1,12 @@
-words_with_capital_letters = ['I', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+words_with_capital_letters = ['I', 'And', 'Benefactor', 'But', 'Cafe', 'Bohemia', 'Close',
+                              'Crime', 'Da', 'Diamond', 'Dont', 'END', 'Edinburgh', 'Hatbox',
+                              'England', 'English', 'Europe', 'Father', 'French', 'Garden', 'Gardens', 'Available',
+                              'Day', 'He', 'Hello', 'His', 'Ill', 'Im', 'Is', 'Its', 'Lady', 'London', 'MajorGeneral',
+                              'Miss', 'Mr', 'My', 'Mysterious', 'Night', 'Now', 'Oh', 'Palace', 'Paris', 'Please',
+                              'Prince', 'Rescue', 'River', 'We', 'Were', 'What', 'Whats', 'When', 'Where', 'Who', 'Why',
+                              'You', 'Your', 'Youre', 'Shocking', 'Sir', 'Speak', 'Sundays', 'Surprise', 'THE', 'Thats',
+                              'This', 'Tonight',
+                              'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
                               'September', 'October', 'November', 'December', 'Monday', 'Tuesday', 'Wednesday',
                               'Thursday', 'Friday', 'Saturday', 'Sunday', 'Afghanistan', 'Albania', 'Algeria',
                               'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia',
@@ -42,34 +50,33 @@ words_with_capital_letters = ['I', 'January', 'February', 'March', 'April', 'May
 
 
 def reformat_file(name_of_the_file: str) -> None:
-    text = open(name_of_the_file, "r").read().replace('.', '. ')
-    while '  ' in text:
-        text = text.replace('  ', ' ')
-    while '\n\n' in text:
-        text = text.replace('\n\n', '\n')
-    open(name_of_the_file, "w").write(text)
+    data = open(name_of_the_file, "r").read().replace('.', '. ')
+    while '  ' in data:
+        data = data.replace('  ', ' ')
+    while '\n\n' in data:
+        data = data.replace('\n\n', '\n')
+    open(name_of_the_file, "w").write(data)
 
 
 def extract_text_from_file(name_of_the_file: str) -> str:
     return open(name_of_the_file, "r").read()
 
 
-def get_sentences_from_text(text: str) -> list:
-    text = text.replace('. ', '.')
-    text = text.replace('\n', ' ')
+def get_sentences_from_text(data: str) -> list:
+    data = data.replace('. ', '.')
+    data = data.replace('\n', ' ')
 
-    while '  ' in text:
-        text = text.replace('  ', ' ')
+    while '  ' in data:
+        data = data.replace('  ', ' ')
 
     punctuation_marks_in_sentence = ['/', ',', ':', ';', '(', ')', '"', "'", '-']
     punctuation_marks_in_the_end_of_sentence = ['.', '!', '?']
     sentences = ['']
-    for i in text:
+    for i in data:
         if i != '\n':
             if i not in punctuation_marks_in_sentence:
                 sentences[-1] += i
             if i in punctuation_marks_in_the_end_of_sentence:
-                sentences[-1] = sentences[-1][:-1]
                 sentences.append('')
     sentences.pop(-1)
     return sentences
@@ -92,8 +99,9 @@ def get_names_of_heroes(sentences: list) -> list:
     return list(heroes)
 
 
-reformat_file("frankenstain.txt")
-text = extract_text_from_file("frankenstain.txt")
+main_file = "The Rajah's Diamond.txt"
+reformat_file(main_file)
+text = extract_text_from_file(main_file)
 sentences = get_sentences_from_text(text)
 names = sorted(get_names_of_heroes(sentences))
 print(names)
